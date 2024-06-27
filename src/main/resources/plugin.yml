@@ -1,0 +1,11 @@
+name: PvPEncounterLite
+version: '${project.version}'
+authors:
+  - 1050TI_top
+main: ru.matveylegenda.pvpencounter.PvPEncounter
+api-version: '1.16'
+commands:
+  pvp:
+
+libraries:
+  - net.elytrium:serializer:1.1.1
