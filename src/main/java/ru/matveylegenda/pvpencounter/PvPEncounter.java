@@ -50,7 +50,7 @@ public final class PvPEncounter extends JavaPlugin {
         pluginManager.registerEvents(new MenuListener(), this);
         pluginManager.registerEvents(new QuitListener(), this);
 
-        int pluginId = 21093;
+        int pluginId = 22886;
         Metrics metrics = new Metrics(this, pluginId);
     }
 
