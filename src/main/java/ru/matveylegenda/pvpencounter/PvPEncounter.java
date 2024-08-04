@@ -2,9 +2,11 @@ package ru.matveylegenda.pvpencounter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.matveylegenda.pvpencounter.commands.PvPCommand;
 import ru.matveylegenda.pvpencounter.listeners.MenuListener;
+import ru.matveylegenda.pvpencounter.listeners.QuitListener;
 import ru.matveylegenda.pvpencounter.utils.Metrics;
 import ru.matveylegenda.pvpencounter.utils.configs.MainConfig;
 import ru.matveylegenda.pvpencounter.utils.configs.MenuConfig;
@@ -44,7 +46,9 @@ public final class PvPEncounter extends JavaPlugin {
 
         getCommand("pvp").setExecutor(new PvPCommand());
 
-        getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new MenuListener(), this);
+        pluginManager.registerEvents(new QuitListener(), this);
 
         int pluginId = 21093;
         Metrics metrics = new Metrics(this, pluginId);

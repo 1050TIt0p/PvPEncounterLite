@@ -6,7 +6,7 @@
 
   <groupId>ru.matveylegenda</groupId>
   <artifactId>PvPEncounterLite</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>PvPEncounterLite</name>

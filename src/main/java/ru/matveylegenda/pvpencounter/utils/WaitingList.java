@@ -1,15 +1,17 @@
 package ru.matveylegenda.pvpencounter.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.UUID;
 
 public class WaitingList {
-    private static ArrayList<Player> waitingPlayers = new ArrayList();
+    private static ArrayList<UUID> waitingPlayers = new ArrayList();
 
     public boolean contains(Player player) {
-        return waitingPlayers.contains(player);
+        return waitingPlayers.contains(player.getUniqueId());
     }
 
     public int getSize() {
@@ -17,15 +19,15 @@ public class WaitingList {
     }
 
     public Player get(int index) {
-        return waitingPlayers.get(index);
+        return Bukkit.getPlayer(waitingPlayers.get(index));
     }
 
     public void add(Player player) {
-        waitingPlayers.add(player);
+        waitingPlayers.add(player.getUniqueId());
     }
 
     public void remove(Player player) {
-        waitingPlayers.remove(player);
+        waitingPlayers.remove(player.getUniqueId());
     }
 
     public void shuffle() {
