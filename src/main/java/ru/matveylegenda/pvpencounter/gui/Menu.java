@@ -8,7 +8,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import ru.matveylegenda.pvpencounter.PvPEncounter;
+import ru.matveylegenda.pvpencounter.utils.configs.MainConfig;
 import ru.matveylegenda.pvpencounter.utils.configs.MenuConfig;
+
+import java.util.List;
 
 import static ru.matveylegenda.pvpencounter.utils.ColorParser.colorize;
 
@@ -17,33 +20,41 @@ public class Menu implements InventoryHolder {
 
     private PvPEncounter plugin = PvPEncounter.getInstance();
 
-    private MenuConfig menuConfig = PvPEncounter.getInstance().menuConfig;
+    private MenuConfig menuConfig = plugin.menuConfig;
+    private MainConfig mainConfig = plugin.mainConfig;
 
     public Menu() {
-        inv = Bukkit.getServer().createInventory(this, menuConfig.size, colorize(menuConfig.title));
+        inv = Bukkit.getServer().createInventory(this, menuConfig.size, colorize(menuConfig.title, mainConfig.serializer));
 
-        ItemStack joinItem = new ItemStack(Material.valueOf(menuConfig.items.join.material));
+        Material joinMaterial = Material.valueOf(menuConfig.items.join.material);
+        String joinName = menuConfig.items.join.name;
+        List<String> joinLore = menuConfig.items.join.lore;
 
-        ItemMeta joinMeta = joinItem.getItemMeta();
-        joinMeta.setDisplayName(colorize(menuConfig.items.join.name));
-        joinMeta.setLore(colorize(menuConfig.items.join.lore));
-        joinMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        inv.setItem(menuConfig.items.join.slot, addItem(joinMaterial, joinName, joinLore));
 
-        joinItem.setItemMeta(joinMeta);
+        Material quitMaterial = Material.valueOf(menuConfig.items.quit.material);
+        String quitName = menuConfig.items.quit.name;
+        List<String> quitLore = menuConfig.items.quit.lore;
 
-        inv.setItem(menuConfig.items.join.slot, joinItem);
+        inv.setItem(menuConfig.items.quit.slot, addItem(quitMaterial, quitName, quitLore));
+    }
 
+    private ItemStack addItem(Material material, String name, List<String> lore) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
 
-        ItemStack quitItem = new ItemStack(Material.valueOf(menuConfig.items.quit.material));
+        if (name != null) {
+            meta.setDisplayName(colorize(name, mainConfig.serializer));
+        }
 
-        ItemMeta quitMeta = quitItem.getItemMeta();
-        quitMeta.setDisplayName(colorize(menuConfig.items.quit.name));
-        quitMeta.setLore(colorize(menuConfig.items.quit.lore));
-        quitMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        if (lore != null) {
+            meta.setLore(colorize(lore, mainConfig.serializer));
+        }
 
-        quitItem.setItemMeta(quitMeta);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
 
-        inv.setItem(menuConfig.items.quit.slot, quitItem);
+        return item;
     }
 
     @Override

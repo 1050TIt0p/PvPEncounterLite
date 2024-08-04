@@ -31,7 +31,7 @@ public class MessagesConfig extends YamlSerializable {
     @Comment({
             @CommentValue(" Сообщение отправляемое при телепортации")
     })
-    public String teleportPlayer = "&fИгрок &#8833EC{player} найден! Телепортация...";
+    public String teleportPlayer = "&fИгрок &#8833EC{player} &fнайден! Телепортация...";
 
     @Comment({
             @CommentValue(" Сообщение отправляемое если локация для телепортации не найдена")

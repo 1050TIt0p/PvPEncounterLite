@@ -30,7 +30,7 @@ public class PvPCommand implements CommandExecutor {
             menuConfig.reloadConfig();
             messagesConfig.reloadConfig();
 
-            sender.sendMessage(colorize(messagesConfig.reload));
+            sender.sendMessage(colorize(messagesConfig.reload, mainConfig.serializer));
 
             return true;
         }

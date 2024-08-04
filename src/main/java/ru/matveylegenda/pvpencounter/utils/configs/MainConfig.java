@@ -11,8 +11,16 @@ import java.util.List;
 
 public class MainConfig extends YamlSerializable {
 
+    @Comment({
+            @CommentValue(" Доступные варианты:"),
+            @CommentValue(" LEGACY - \"&fПример &#650dbdтекста\""),
+            @CommentValue(" MINIMESSAGE - \"<white>Пример</white> <color:#650dbd>текста</color>\" (https://webui.advntr.dev/)"),
+    })
+    public String serializer = "LEGACY";
+
     public RandomLocation randomLocation = new RandomLocation();
 
+    @NewLine(amount = 1)
     @Comment({
             @CommentValue(" Настроки случайной телепортации")
     })

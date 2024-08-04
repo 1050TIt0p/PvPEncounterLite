@@ -36,7 +36,7 @@ public class MenuListener implements Listener {
 
             if (event.getSlot() == menuConfig.items.join.slot) {
                 if (waitingList.contains(player)) {
-                    player.sendMessage(colorize(messagesConfig.alreadyQueue));
+                    player.sendMessage(colorize(messagesConfig.alreadyQueue, mainConfig.serializer));
                     player.closeInventory();
 
                     return;
@@ -44,7 +44,7 @@ public class MenuListener implements Listener {
 
                 waitingList.add(player);
 
-                player.sendMessage(colorize(messagesConfig.joinQueue));
+                player.sendMessage(colorize(messagesConfig.joinQueue, mainConfig.serializer));
                 player.closeInventory();
 
                 if (mainConfig.joinBroadcastMessageEnabled) {
@@ -52,7 +52,7 @@ public class MenuListener implements Listener {
                         String broadcastMessage = messagesConfig.joinBroadcastMessage
                                 .replace("{player}", player.getName());
                         for (Player players : Bukkit.getOnlinePlayers()) {
-                            players.sendMessage(colorize(broadcastMessage));
+                            players.sendMessage(colorize(broadcastMessage, mainConfig.serializer));
                         }
                     }
                 }
@@ -66,17 +66,15 @@ public class MenuListener implements Listener {
                     waitingList.remove(player1);
                     waitingList.remove(player2);
 
-                    // Логика телепорта, позже короче
-
                     player1.sendMessage(colorize(
                             messagesConfig.teleportPlayer
                                     .replace("{player}", player2.getName())
-                    ));
+                    , mainConfig.serializer));
 
                     player2.sendMessage(colorize(
                             messagesConfig.teleportPlayer
                                     .replace("{player}", player1.getName())
-                    ));
+                    , mainConfig.serializer));
 
                     World world = Bukkit.getWorld(mainConfig.randomLocation.world);
 
@@ -89,8 +87,8 @@ public class MenuListener implements Listener {
                     Location location = new TeleportUtil().getRandomLocation(world, minX, maxX, minZ, maxZ);
 
                     if (location == null) {
-                        player1.sendMessage(colorize(messagesConfig.locationNotFound));
-                        player2.sendMessage(colorize(messagesConfig.locationNotFound));
+                        player1.sendMessage(colorize(messagesConfig.locationNotFound, mainConfig.serializer));
+                        player2.sendMessage(colorize(messagesConfig.locationNotFound, mainConfig.serializer));
 
                         return;
                     }
@@ -102,7 +100,7 @@ public class MenuListener implements Listener {
 
             if (event.getSlot() == menuConfig.items.quit.slot) {
                 if (!waitingList.contains(player)) {
-                    player.sendMessage(colorize(messagesConfig.notQueue));
+                    player.sendMessage(colorize(messagesConfig.notQueue, mainConfig.serializer));
                     player.closeInventory();
 
                     return;
@@ -110,7 +108,7 @@ public class MenuListener implements Listener {
 
                 waitingList.remove(player);
 
-                player.sendMessage(colorize(messagesConfig.quitQueue));
+                player.sendMessage(colorize(messagesConfig.quitQueue, mainConfig.serializer));
                 player.closeInventory();
             }
         }

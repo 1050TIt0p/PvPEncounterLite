@@ -6,7 +6,7 @@
 
   <groupId>ru.matveylegenda</groupId>
   <artifactId>PvPEncounterLite</artifactId>
-  <version>1.1</version>
+  <version>1.1.1</version>
   <packaging>jar</packaging>
 
   <name>PvPEncounterLite</name>
@@ -37,6 +37,15 @@
             <goals>
               <goal>shade</goal>
             </goals>
+              <configuration>
+                  <relocations>
+                      <relocation>
+                          <pattern>net.kyori</pattern>
+                          <shadedPattern>ru.matveylegenda.pvpencounter.thirdparty.net.kyori</shadedPattern>
+                      </relocation>
+                  </relocations>
+                  <minimizeJar>true</minimizeJar>
+              </configuration>
           </execution>
         </executions>
       </plugin>
@@ -72,6 +81,21 @@
           <artifactId>serializer</artifactId>
           <version>1.1.1</version>
           <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-api</artifactId>
+          <version>4.17.0</version>
+      </dependency>
+      <dependency>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-text-minimessage</artifactId>
+          <version>4.17.0</version>
+      </dependency>
+      <dependency>
+          <groupId>net.kyori</groupId>
+          <artifactId>adventure-platform-bukkit</artifactId>
+          <version>4.3.3</version>
       </dependency>
   </dependencies>
 </project>
